@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <link rel="stylesheet" href="./style_IoT.css" type="text/css">
+
+    <title>Home Automation System</title>
+
+</head>
+<body>
+    <div id="pageContainer">
+
+        <div id="header">
+            <h1>Home Automation System</h1>
+            
+            <h3>Internet of Things interface</h3>
+        </div>
+
+        <div id="container">
+            <div class="box" id="topLeft">
+
+                <div class="boxTitle">
+                    Dashboard
+                </div>
+
+                <div class="innerGridContainer" id="dashboard">
+                    <div class="innerBox"> Status: Temperature </div>
+                    <div class="innerBox"> Status: Heating</div>
+                    <div class="innerBox"> Status: Blinds</div>
+                    <div class="innerBox"> Status: Power Consumption</div>
+                </div>
+            </div>
+
+            <div class="box" id="topRight">
+
+                <div class="boxTitle">
+                    Heating System
+                </div>
+
+                <div class="innerGridContainer" id="heating">
+                    <div class="innerBoxButton" id="heatOn"> ACTION: On/Off button </div>
+                    <div class="innerBoxButton" id="autoHeat"> ACTION: On/Off Automatic heating</div>
+                    <div class="innerBox"> Status: Temperature Inside</div>
+                    <div class="innerBox"> Status: Heating power Consumption</div>
+                </div>
+            </div>
+        
+            <div class="box" id="bottomLeft">
+                
+                <div class="boxTitle">
+                    Weather Station
+                </div>
+                
+                <div class="innerGridContainer" id="weather">
+                    <div class="innerBox"> Status: Temperature Outside </div>
+                    <div class="innerBox"> Status: Overcast (w/ Image)</div>
+                    <div class="innerBox"> Status: Wind speed</div>
+                    <div class="innerBox"> Status: Forecast</div>
+                </div>
+            </div>
+
+            <div class="box" id="bottomRight">
+                
+                <div class="boxTitle">
+                    Roller Blinds
+                </div>
+                
+                <div class="innerGridContainer" id="blinds">
+                    <div class="innerBoxButton"> ACTION: Close/Open </div>
+                    <div class="innerBoxButton"> ACTION: On/Off automatic blinds</div>
+                    <div class="innerBox"> Status: Blinds</div>
+                    <div class="innerBox"> Status: Day/Night</div>
+                </div> 
+            </div>
+        </div>
+
+        <div id="footer1">
+            <!--Settings box-->
+            <p>Settings</p>
+        </div>
+
+        <div id="footer2">
+            <span id="copyrightFooter">
+                Made for the "Internet of Things Software" elective course, HFU
+                <br>
+                Summer Semester 2019
+                <br>
+                Made with love by : Martin Schottlender, Matias Stingl & Sébastien Darche
+            </span>
+        </div>
+    </div>
+</body>
+</html>
