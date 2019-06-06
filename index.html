@@ -27,10 +27,26 @@
                 </div>
 
                 <div class="innerGridContainer" id="dashboard">
-                    <div class="innerBox"> Status: Temperature </div>
-                    <div class="innerBox"> Status: Heating</div>
-                    <div class="innerBox"> Status: Blinds</div>
-                    <div class="innerBox"> Status: Power Consumption</div>
+                    <div class="innerBox"> 
+                        Current temp : <span id="outsideTemp">NULL</span> °C
+                        <img src="./ressources/img/thermometer.png">
+                        
+                    </div>
+                    <div class="innerBox">
+                        Heater status : <span id="heaterStatus">NULL</span>
+                        <img src="ressources/img/heater.png">
+                        
+                    </div>
+                    <div class="innerBox">
+                        Blinds status : <span id="blindsStatus">NULL</span>
+                        <img src="ressources/img/blinds.png">
+                        
+                    </div>
+                    <div class="innerBox">
+                        Total power consumption : <span id="powerCons">NULL</span> kWh
+                        <img src="ressources/img/power.png">
+                        
+                    </div>
                 </div>
             </div>
 
@@ -41,10 +57,23 @@
                 </div>
 
                 <div class="innerGridContainer" id="heating">
-                    <div class="innerBoxButton" id="heatOn"> ACTION: On/Off button </div>
-                    <div class="innerBoxButton" id="autoHeat"> ACTION: On/Off Automatic heating</div>
-                    <div class="innerBox"> Status: Temperature Inside</div>
-                    <div class="innerBox"> Status: Heating power Consumption</div>
+                    <div class="innerBoxButton" id="heatOn">
+                        Force turn heating <span id="heaterAction">STATUS</span>
+                        <img src="ressources/img/powerOn.png">
+                    </div>
+                    <div class="innerBoxButton" id="autoHeat">
+                        Turn automatic control <span id="heaterAuto">STATUS</span>
+                        <img src="ressources/img/Auto.png">
+                        <span id="powerCons">NULL</span>
+                    </div>
+                    <div class="innerBox">
+                        Current inside temp : <span id="insideTemp">NULL</span> °C
+                        <img src="./ressources/img/thermometer.png">
+                    </div>
+                    <div class="innerBox">
+                        Heater power consumption : <span id="heaterCons">NULL</span> kWh
+                        <img src="ressources/img/power.png">
+                    </div>
                 </div>
             </div>
         
@@ -55,10 +84,22 @@
                 </div>
                 
                 <div class="innerGridContainer" id="weather">
-                    <div class="innerBox"> Status: Temperature Outside </div>
-                    <div class="innerBox"> Status: Overcast (w/ Image)</div>
-                    <div class="innerBox"> Status: Wind speed</div>
-                    <div class="innerBox"> Status: Forecast</div>
+                    <div class="innerBox">
+                        Current relative humidity : <span id="relHumidity">NULL</span> %
+                        <img src="ressources/img/waterdrop.png">
+                    </div>
+                    <div class="innerBox">
+                        Current weather : <span id="currentWeather">NULL</span>
+                        <img src="ressources/img/cloud.png">
+                    </div>
+                    <div class="innerBox">
+                        Wind speed : <span id="windSpeed">NULL</span> km/h
+                        <img src="ressources/img/WindSpeed.png">
+                    </div>
+                    <div class="innerBox">
+                        Forecast : <span id="forecastWeather">NULL</span>
+                        <img src="ressources/img/clock.png">
+                    </div>
                 </div>
             </div>
 
@@ -69,16 +110,28 @@
                 </div>
                 
                 <div class="innerGridContainer" id="blinds">
-                    <div class="innerBoxButton"> ACTION: Close/Open </div>
-                    <div class="innerBoxButton"> ACTION: On/Off automatic blinds</div>
-                    <div class="innerBox"> Status: Blinds</div>
-                    <div class="innerBox"> Status: Day/Night</div>
+                    <div class="innerBoxButton" id="blindsOn">
+                        Force <span id="blindsAction">STATUS</span> blinds 
+                        <img src="ressources/img/powerOn.png">
+                    </div>
+                    <div class="innerBoxButton" id="autoBlinds">
+                        Turn automatic control <span id="blindsAuto">STATUS</span>
+                        <img src="ressources/img/Auto.png">
+                    </div>
+                    <div class="innerBox">
+                        Blinds status : <span id="blindsStatus2">NULL</span>
+                        <img src="ressources/img/blinds.png">
+                    </div>
+                    <div class="innerBox">
+                        Current time : <span id="currTime">NULL</span>
+                        <img id="sunMood" src="ressources/img/sun.png">
+                    </div>
                 </div> 
             </div>
         </div>
 
         <div id="footer1">
-            <!--Settings box-->
+            <!--Settings box, TODO-->
             <p>Settings</p>
         </div>
 

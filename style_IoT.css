@@ -11,6 +11,15 @@ body {
     height: 100vh;
 }
 
+img {
+    text-align: center;
+    float: left;
+    width: 45%;
+    margin: 0;
+    bottom: 0;
+    height: auto;
+}
+
 div#pageContainer {
     margin: 0;
     padding: 0;
@@ -55,6 +64,7 @@ div#footer2 {
 }
 .innerBox {
     background-color: #6F2232;
+    position: relative;
     padding: 5px;
     margin: 5%;
     border-radius: 5px;
@@ -69,8 +79,10 @@ div#footer2 {
     margin: 5%;
     border-radius: 5px;
     box-shadow: 2px 2px 2px  #4E1823;
+    border: 1px solid white;
     font-size: 9pt;
     color: lightgray;
+    position: relative;
 }
 .innerBoxButton:hover {
     
@@ -86,8 +98,8 @@ div#footer2 {
     transform: scale(1.01);
     transition: 200ms;
     opacity: 0.9;
-    
 }
+
 
 
 /* Mobile version */
@@ -112,14 +124,14 @@ div#footer2 {
 
 
         width: 100%;
-        height: 200px;
+        height: 250px;
         padding: 10px;
         margin: 10px;
         background-color: #4E4E50;
         color : lightgray;
 
         border-radius: 7px;
-        box-shadow: 2px 2px 8px goldenrod;
+        box-shadow: 2px 2px 8px black;
     }
 
 }
