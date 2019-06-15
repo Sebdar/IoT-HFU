@@ -1,0 +1,15 @@
+{
+  "name": "mqtt_serv",
+  "version": "1.0.0",
+  "description": "A basic mqtt server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mosca": "^2.8.3",
+    "mqtt": "^3.0.0"
+  }
+}

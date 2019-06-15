@@ -1,0 +1,8 @@
+{
+	"addr": "localhost",
+	"port": 1883,
+	"default" : {
+		"isClosed" : false,
+		"isAuto": true
+	}
+}

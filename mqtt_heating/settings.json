@@ -1,0 +1,14 @@
+{
+	"addr": "localhost",
+	"port": 1883,
+	"default" : {
+		"outsideTemp": 21,
+		"insidetemp": 23,
+		"isOn" : false,
+		"isAuto" : true,
+		"powerCons" : 2000
+	},
+	"automatePower" : true,
+	"automateInsideTemp" : true,
+	"updateInterval" : 4000
+}

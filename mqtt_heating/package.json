@@ -1,0 +1,14 @@
+{
+  "name": "mqtt_heating",
+  "version": "1.0.0",
+  "description": "A simple mqtt client for a simulated heating system",
+  "main": "heating.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^3.0.0"
+  }
+}
