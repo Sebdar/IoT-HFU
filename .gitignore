@@ -3,4 +3,4 @@ style_IoT.1.css
 .gitignore
 /share/
 IoT_Final_Project.zip
-**/node_modules
+#**/node_modules/
