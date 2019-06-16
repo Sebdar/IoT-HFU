@@ -17,7 +17,7 @@ var addr = 'mqtt://'+settings.addr+':'+settings.port;
 console.log("Connecting to "+addr);
 
 var status = {
-	outsideTemp: settings.default.outsideTemp,
+	outsideTemp: settings.default.outsideTemp, //Corresponds to the temperature sent by local/temperature
 	insideTemp: settings.default.insideTemp,
 	isOn: settings.default.isOn,
 	powerCons: settings.default.powerCons,
@@ -27,13 +27,13 @@ var status = {
 		this.isOn = newStatus;
 		this.isAuto = false;
 		console.log('NOTICE : Deactivating auto-mode');
-		client.publish('appliances/heating', 'auto:off');
+		client.publish('appliances/heating', ' { "heaterAuto":"off" }');
 		this.publishStatus();
 	},
 	setAuto : function() {
 		this.isAuto = true;
 		console.log('NOTICE : Activating auto-mode');
-		client.publish('appliances/heating', 'auto:on');
+		client.publish('appliances/heating', ' { "heaterAuto":"on" }');
 		this.updateHeating();
 	},
 	updateHeating : function() {
@@ -52,14 +52,13 @@ var status = {
 	},
 	publishStatus : function() {
 		if(this.isOn) {
-			client.publish('appliances/heating', 'heating:on');
+			client.publish('appliances/heating', ' { "heaterStatus":"on" }');
 			console.log('STATUS : Heating is on');
 		}
 		else {
-			client.publish('appliances/heating', 'heating:off');
+			client.publish('appliances/heating', '{ "heaterStatus":"off" }');
 			console.log('STATUS : Heating is off');
 		}
-		//client.publish('heating/insidetemp', status.insideTemp);
 		console.log('NOTICE : Publishing status to broker');
 	},
 
@@ -69,13 +68,13 @@ var status = {
 	//hardware part, which is not studied in this course.
 	updatePower : function() {
 		if(status.isOn) {
-			status.powerCons = Math.random * 200 + 800;
+			status.powerCons = Math.random() * 200 + 800;
 			//So as to get a power consumption such as
 			//P ~ U([800, 100]) uniform distribution
 		} else {
 			status.powerCons = 0;
 		}
-		client.publish('heating/powercons', status.powerCons.toString());
+		client.publish('heating/powercons', '{ "heaterCons": '+status.powerCons.toString()+' }');
 		//Note that if the number is not converted to a string,
 		//the client will send an empty string if powerCons==0
 	},
@@ -86,7 +85,7 @@ var status = {
 		} else {
 			status.insideTemp = status.outsideTemp;
 		}
-		client.publish('heating/insidetemp', status.insideTemp.toString());
+		client.publish('heating/insidetemp', '{ "insideTemp": '+status.insideTemp.toString()+ ' }');
 	}
 };
 
@@ -110,7 +109,7 @@ client.on('message', (topic, message) => {
 	console.log('NETWORK : Received package');
 	let info = message.toString();
 	if(topic == 'local/temperature') {
-		status.outsideTemp = parseInt(info, 10);
+		status.outsideTemp = JSON.parse(info).temperature;
 		console.log('NOTICE : new outside temperature :', status.outsideTemp);
 		status.updateHeating();
 	}

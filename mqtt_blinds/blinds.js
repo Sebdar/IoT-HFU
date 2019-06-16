@@ -27,13 +27,13 @@ var status = {
 		this.isClosed = newStatus;
 		this.isAuto = false;
 		console.log('NOTICE : Deactivating auto-mode');
-		client.publish('appliances/blinds', 'auto:off');
+		client.publish('appliances/blinds', '{ "blindsAuto": "off" }');
 		this.publishStatus();
 	},
 	setAuto : function() {
 		this.isAuto = true;
 		console.log('NOTICE : Activating auto-mode');
-		client.publish('appliances/blinds', 'auto:on');
+		client.publish('appliances/blinds', '{ "blindsAuto": "on" }');
 		this.updateBlinds();
 	},
 	updateBlinds : function() {
@@ -52,11 +52,11 @@ var status = {
 	},
 	publishStatus : function() {
 		if(this.isClosed) {
-			client.publish('appliances/blinds', 'blinds:closed');
+			client.publish('appliances/blinds', '{ "blindsStatus":"closed" }');
 			console.log('STATUS : Blinds are closed');
 		}
 		else {
-			client.publish('appliances/blinds', 'blinds:open');
+			client.publish('appliances/blinds', '{ "blindsStatus":"open" }');
 			console.log('STATUS : Blinds are open');
 		}
 		console.log('NOTICE : Publishing status to broker');
@@ -76,13 +76,14 @@ client.on('message', (topic, message) => {
 	console.log('NETWORK : Received package');
 	let info = message.toString();
 	if(topic == 'local/temperature') {
-		status.outsideTemp = parseInt(info, 10);
+		status.outsideTemp = JSON.parse(info).temperature;
 		console.log('NOTICE : new outside temperature :', status.outsideTemp);
 		status.updateBlinds();
 	}
 	else if(topic == 'local/time') {
-		if(info == 'day' || info == 'night') {
-			status.time = info;
+		let newT = JSON.parse(info).currTime;
+		if(newT == 'day' || newT == 'night') {
+			status.time = newT;
 			console.log('NOTICE : new time :', status.time);
 			status.updateBlinds();
 		}

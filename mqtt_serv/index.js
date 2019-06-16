@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 });
 
 var iotStatus = {
-	'outsideTemp': null,
+	'temperature': null,
 	'heaterStatus': null,
 	'blindsStatus': null,
 	'powerCons': null,
@@ -31,6 +31,8 @@ rl.on('line', (input) => {
 		rl.close();
 	} else if(regexCommand.test(input)) {
 		//If a command is recognized
+		//These commands are a debug method for the frontend js
+		//and have no actions on the mqtt network
 		let command = input.split(' ');
 		let key = command[0];
 		let value = command[2];
@@ -66,6 +68,26 @@ server.on('clientConnected', (client) => {
 
 server.on('published', (packet, client) => {
 	console.log('NOTICE : Published :', packet.payload.toString(), 'on topic', packet.topic);
+	//Message processing
+	
+	try  {
+		transmitted = JSON.parse(packet.payload.toString());
+
+		for(var key of Object.keys(transmitted)) {
+			if(Object.keys(iotStatus).includes(key)) {
+				iotStatus[key] = transmitted[key];
+				console.log('STATUS : Modified '+key);
+			}
+			else {
+				console.log('WARNING : received key could not be recognized!');
+			}
+		}
+	}
+
+	catch(err) {
+		console.log('WARNING : Could not parse JSON packet, may not be a status message');
+	}
+	
 });
 
 server.on('ready', () => { console.log('SERVER : Server running');});
