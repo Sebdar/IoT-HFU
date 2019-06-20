@@ -103,6 +103,18 @@ client.on('connect', () => { connected = true;
 	if(settings.automateInsideTemp) {
 		setInterval(status.updateInsideTemp, settings.updateInterval);
 	}
+
+	//Subcribing to all relevant topics
+	client.subscribe('local/temperature', (err, granted) => {
+		if(!err) {
+			client.publish('log/subscriptions', 'Heating system subscribed to temperature')
+			console.log('NETWORK : Successfully subscribed to local/temperature');
+		}
+	});
+	
+	client.subscribe('appliances/force/heating');
+	client.subscribe('appliances/force/autoheat');
+	
 })
 
 client.on('message', (topic, message) => {
@@ -136,12 +148,3 @@ client.on('message', (topic, message) => {
 		console.log('WARNING : Could not identify topic : ', topic);
 });
 
-client.subscribe('local/temperature', (err, granted) => {
-	if(!err) {
-		client.publish('log/subscriptions', 'Heating system subscribed to temperature')
-		console.log('NETWORK : Successfully subscribed to local/temperature');
-	}
-});
-
-client.subscribe('appliances/force/heating');
-client.subscribe('appliances/force/autoheat');

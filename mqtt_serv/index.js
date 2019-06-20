@@ -9,6 +9,7 @@ const rl = readline.createInterface({
 });
 
 var iotStatus = {
+
 	'temperature': null,
 	'heaterStatus': null,
 	'blindsStatus': null,
@@ -21,7 +22,8 @@ var iotStatus = {
 	'windSpeed': null,
 	'forecastWeather': null,
 	'blindsAuto': null,
-	'currTime': null
+	'currTime': null,
+	'timeUnix': null
 }
 
 
@@ -41,7 +43,7 @@ rl.on('line', (input) => {
 			console.log('NOTICE : Internal value changed');
 		}
 		else {
-			console.log('WARNING : key could not be recognized!');
+			console.log('WARNING : key '+key+' could not be recognized!');
 		}
 
 	}
@@ -67,7 +69,7 @@ server.on('clientConnected', (client) => {
 });
 
 server.on('published', (packet, client) => {
-	console.log('NOTICE : Published :', packet.payload.toString(), 'on topic', packet.topic);
+	console.log('NETWORK : Published :', packet.payload.toString(), 'on topic', packet.topic);
 	//Message processing
 	
 	try  {
@@ -79,13 +81,13 @@ server.on('published', (packet, client) => {
 				console.log('STATUS : Modified '+key);
 			}
 			else {
-				console.log('WARNING : received key could not be recognized!');
+				console.log('WARNING : received key '+key+' could not be recognized!');
 			}
 		}
 	}
 
 	catch(err) {
-		console.log('WARNING : Could not parse JSON packet, may not be a status message');
+		console.log('NOTICE : Could not parse JSON packet, may not be an IoT status message');
 	}
 	
 });

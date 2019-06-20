@@ -1,0 +1,6 @@
+{
+	"addr": "localhost",
+	"port": 1883,
+	"apiURL": "http://api.openweathermap.org/data/2.5/weather?id=2817220&APPID=abbcd86de9a310d0e5faf1fa370b6536&units=metric",
+	"refreshInterval": 30000
+}

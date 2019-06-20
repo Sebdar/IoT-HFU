@@ -70,6 +70,27 @@ var connected = false;
 
 client.on('connect', () => { connected = true;
 	console.log('NETWORK : Connected to main server');
+
+	//Subscribing to all relevant topics
+	client.subscribe('local/temperature', (err, granted) => {
+		if(!err) {
+			client.publish('log/subscriptions', 'Blinds system subscribed to temperature')
+			console.log('NETWORK : Successfully subscribed to local/temperature');
+		}
+	});
+	
+	
+	client.subscribe('local/time', (err, granted) => {
+		if(!err) {
+			client.publish('log/subscriptions', 'Blinds system subscribed to time')
+			console.log('NETWORK : Successfully subscribed to local/time');
+		}
+	})
+	
+	client.subscribe('appliances/force/blinds');
+	client.subscribe('appliances/force/autoblinds');
+	
+
 })
 
 client.on('message', (topic, message) => {
@@ -113,20 +134,3 @@ client.on('message', (topic, message) => {
 		console.log('WARNING : Could not identify topic : ', topic);
 });
 
-client.subscribe('local/temperature', (err, granted) => {
-	if(!err) {
-		client.publish('log/subscriptions', 'Blinds system subscribed to temperature')
-		console.log('NETWORK : Successfully subscribed to local/temperature');
-	}
-});
-
-
-client.subscribe('local/time', (err, granted) => {
-	if(!err) {
-		client.publish('log/subscriptions', 'Blinds system subscribed to time')
-		console.log('NETWORK : Successfully subscribed to local/time');
-	}
-})
-
-client.subscribe('appliances/force/blinds');
-client.subscribe('appliances/force/autoblinds');
