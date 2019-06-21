@@ -61,6 +61,14 @@ var status = {
 		}
 		console.log('NOTICE : Publishing status to broker');
 	},
+	publishAuto: function() {
+		if(this.isAuto) {
+			client.publish('appliances/heating', ' { "heaterAuto":"on" }');
+		}
+		else {
+			client.publish('appliances/heating', ' { "heaterAuto":"off" }');
+		}
+	},
 
 	//The following formulas for the power consumption and inside temperature
 	//are completely arbitrary, and should not represent any physical value.
@@ -103,6 +111,7 @@ client.on('connect', () => { connected = true;
 	if(settings.automateInsideTemp) {
 		setInterval(status.updateInsideTemp, settings.updateInterval);
 	}
+	status.updateHeating();
 
 	//Subcribing to all relevant topics
 	client.subscribe('local/temperature', (err, granted) => {
@@ -114,7 +123,11 @@ client.on('connect', () => { connected = true;
 	
 	client.subscribe('appliances/force/heating');
 	client.subscribe('appliances/force/autoheat');
-	
+
+	status.publishStatus();
+	status.publishAuto();
+	status.updateInsideTemp();
+	status.updatePower();
 })
 
 client.on('message', (topic, message) => {
@@ -136,6 +149,7 @@ client.on('message', (topic, message) => {
 	else if (topic == 'appliances/force/autoheat') {
 		if(info == 'auto:off') {
 			status.isAuto = false;
+			client.publish('appliances/heating', ' { "heaterAuto":"off" }');
 		}
 		else if(info == 'auto:on') {
 			status.setAuto();

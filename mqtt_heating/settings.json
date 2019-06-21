@@ -10,5 +10,5 @@
 	},
 	"automatePower" : true,
 	"automateInsideTemp" : true,
-	"updateInterval" : 4000
+	"updateInterval" : 30000
 }

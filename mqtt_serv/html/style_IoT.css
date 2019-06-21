@@ -57,10 +57,14 @@ div#footer2 {
     /* Grid */
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 50% 50%;
+    /* grid-template-rows: 50% 50%; */
     grid-template-areas: 
         "upLeft upRight"
         "downLeft downRight";
+}
+.status {
+    font-weight: 800;
+    font-size: 10pt;
 }
 .innerBox {
     background-color: #6F2232;

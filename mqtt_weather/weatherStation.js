@@ -45,11 +45,13 @@ var status = {
 		 pr1.then(function(newWeather) {
 			status.time.timeUnix = newWeather.dt;
 			status.temperature.temperature = newWeather.main.temp;
-			status.weather.currWeather = newWeather.weather.description;
-			status.weather.relHumidity = newWeather.wind.speed * 3.6;
+			status.weather.currWeather = newWeather.weather[0].description;
+			status.weather.relHumidity = newWeather.main.humidity;
+			status.weather.windSpeed = newWeather.wind.speed * 3.6;
+
 			
 			//Asserting if it is night or day, based on real sunrise and sunset time
-			if(this.timeUnix < newWeather.sys.sunset && this.timeUnix > newWeather.sys.sunrise) {
+			if(status.time.timeUnix < newWeather.sys.sunset && status.time.timeUnix > newWeather.sys.sunrise) {
 				status.time.currTime = 'day';
 			}
 			else {

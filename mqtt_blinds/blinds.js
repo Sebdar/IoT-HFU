@@ -60,6 +60,14 @@ var status = {
 			console.log('STATUS : Blinds are open');
 		}
 		console.log('NOTICE : Publishing status to broker');
+	},
+	publishAuto: function() {
+		if(this.isAuto) {
+			client.publish('appliances/blinds', ' { "blindsAuto":"on" }');
+		}
+		else {
+			client.publish('appliances/blinds', ' { "blindsAuto":"off" }');
+		}
 	}
 };
 
@@ -70,6 +78,7 @@ var connected = false;
 
 client.on('connect', () => { connected = true;
 	console.log('NETWORK : Connected to main server');
+	status.updateBlinds();
 
 	//Subscribing to all relevant topics
 	client.subscribe('local/temperature', (err, granted) => {
@@ -90,7 +99,8 @@ client.on('connect', () => { connected = true;
 	client.subscribe('appliances/force/blinds');
 	client.subscribe('appliances/force/autoblinds');
 	
-
+	status.publishStatus();
+	status.publishAuto();
 })
 
 client.on('message', (topic, message) => {
@@ -122,6 +132,7 @@ client.on('message', (topic, message) => {
 	else if (topic == 'appliances/force/autoblinds') {
 		if(info == 'auto:off') {
 			status.isAuto = false;
+			status.publishAuto();
 		}
 		else if(info == 'auto:on') {
 			status.setAuto();

@@ -1,0 +1,10 @@
+{
+	"mqtt": {
+        "port": 1883,
+	    "host": "localhost"
+    },
+    "http": {
+        "port": 80,
+        "static": "./html"
+    }
+}

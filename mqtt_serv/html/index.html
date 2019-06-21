@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 
     <link rel="stylesheet" href="./style_IoT.css" type="text/css">
-
+    <script src='./script.js'></script>
     <title>Home Automation System</title>
 
 </head>
@@ -28,22 +28,22 @@
 
                 <div class="innerGridContainer" id="dashboard">
                     <div class="innerBox"> 
-                        Current temp : <span id="outsideTemp">NULL</span> °C
+                        Current temp : <span class="status" id="outsideTemp">NULL</span> °C
                         <img src="./ressources/img/thermometer.png">
                         
                     </div>
                     <div class="innerBox">
-                        Heater status : <span id="heaterStatus">NULL</span>
+                        Heater status : <span class="status" id="heaterStatus">NULL</span>
                         <img src="ressources/img/heater.png">
                         
                     </div>
                     <div class="innerBox">
-                        Blinds status : <span id="blindsStatus">NULL</span>
+                        Blinds status : <span class="status" id="blindsStatus">NULL</span>
                         <img src="ressources/img/blinds.png">
                         
                     </div>
                     <div class="innerBox">
-                        Total power consumption : <span id="powerCons">NULL</span> kWh
+                        Total power consumption : <span class="status" id="powerCons">NULL</span> kWh
                         <img src="ressources/img/power.png">
                         
                     </div>
@@ -58,20 +58,19 @@
 
                 <div class="innerGridContainer" id="heating">
                     <div class="innerBoxButton" id="heatOn">
-                        Force turn heating <span id="heaterAction">STATUS</span>
+                        Force turn heating <span class="status" id="heaterAction">STATUS</span>
                         <img src="ressources/img/powerOn.png">
                     </div>
                     <div class="innerBoxButton" id="autoHeat">
-                        Turn automatic control <span id="heaterAuto">STATUS</span>
+                        Turn automatic control <span class="status" id="heaterAuto">STATUS</span>
                         <img src="ressources/img/Auto.png">
-                        <span id="powerCons">NULL</span>
                     </div>
                     <div class="innerBox">
-                        Current inside temp : <span id="insideTemp">NULL</span> °C
+                        Current inside temp : <span class="status" id="insideTemp">NULL</span> °C
                         <img src="./ressources/img/thermometer.png">
                     </div>
                     <div class="innerBox">
-                        Heater power consumption : <span id="heaterCons">NULL</span> kWh
+                        Heater power consumption : <span class="status" id="heaterCons">NULL</span> kWh
                         <img src="ressources/img/power.png">
                     </div>
                 </div>
@@ -85,19 +84,19 @@
                 
                 <div class="innerGridContainer" id="weather">
                     <div class="innerBox">
-                        Current relative humidity : <span id="relHumidity">NULL</span> %
+                        Current relative humidity : <span class="status" id="relHumidity">NULL</span> %
                         <img src="ressources/img/waterdrop.png">
                     </div>
                     <div class="innerBox">
-                        Current weather : <span id="currentWeather">NULL</span>
+                        Current weather : <span class="status" id="currWeather">NULL</span>
                         <img src="ressources/img/cloud.png">
                     </div>
                     <div class="innerBox">
-                        Wind speed : <span id="windSpeed">NULL</span> km/h
+                        Wind speed : <span class="status" id="windSpeed">NULL</span> km/h
                         <img src="ressources/img/WindSpeed.png">
                     </div>
                     <div class="innerBox">
-                        Forecast : <span id="forecastWeather">NULL</span>
+                        Forecast : <span class="status" id="forecastWeather">NULL</span>
                         <img src="ressources/img/clock.png">
                     </div>
                 </div>
@@ -111,20 +110,20 @@
                 
                 <div class="innerGridContainer" id="blinds">
                     <div class="innerBoxButton" id="blindsOn">
-                        Force <span id="blindsAction">STATUS</span> blinds 
+                        Force <span class="status" id="blindsAction">STATUS</span> blinds 
                         <img src="ressources/img/powerOn.png">
                     </div>
                     <div class="innerBoxButton" id="autoBlinds">
-                        Turn automatic control <span id="blindsAuto">STATUS</span>
+                        Turn automatic control <span class="status" id="blindsAuto">STATUS</span>
                         <img src="ressources/img/Auto.png">
                     </div>
                     <div class="innerBox">
-                        Blinds status : <span id="blindsStatus2">NULL</span>
+                        Blinds status : <span class="status" id="blindsStatus2">NULL</span>
                         <img src="ressources/img/blinds.png">
                     </div>
                     <div class="innerBox">
-                        Current time : <span id="currTime">NULL</span>
-                        <img id="sunMood" src="ressources/img/sun.png">
+                        Current time : <span class="status" id="currTime">NULL</span>
+                        <img id="sunMoon" src="ressources/img/sun.png">
                     </div>
                 </div> 
             </div>

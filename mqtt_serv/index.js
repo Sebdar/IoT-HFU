@@ -1,4 +1,19 @@
-var mosca = require('mosca');
+const mosca = require('mosca');
+const express = require('express');
+const fs = require('fs');
+var httpServer = express();
+
+//For settings file
+var settingsFil = fs.readFileSync("./settings.json");
+
+try {
+	var settings = JSON.parse(settingsFil);
+}
+catch(e) {
+	console.error("ERROR : Could not parse JSON Settings file! :"+e);
+	process.exit();
+}
+
 //For internal server commands
 const readline = require('readline');
 const regexCommand = /^[a-zA-Z]+ = [a-z0-9]+$/;
@@ -18,7 +33,7 @@ var iotStatus = {
 	'insideTemp': null,
 	'heaterCons': null,
 	'relHumidity': null,
-	'currentWeather': null,
+	'currWeather': null,
 	'windSpeed': null,
 	'forecastWeather': null,
 	'blindsAuto': null,
@@ -46,6 +61,8 @@ rl.on('line', (input) => {
 			console.log('WARNING : key '+key+' could not be recognized!');
 		}
 
+	} else if(input in iotStatus) {
+		console.log('INFO : Current value of ', input, ' : ', iotStatus[input]);
 	}
 	else {
 		console.log('WARNING : command could not be recognized!');
@@ -56,19 +73,19 @@ rl.on('close', () => {
 	rl.close();
 	process.exit();
 });
-var settings = {
-	port: 1883,
-	host: "localhost",
-	persistence: {factory: mosca.persistence.Memory}
-};
 
-var server = new mosca.Server(settings);
 
-server.on('clientConnected', (client) => {
+
+
+//MQTT Server
+settings.mqtt.persistence = {factory: mosca.persistence.Memory}; //Default persistence settings
+var mqttServer = new mosca.Server(settings.mqtt);
+
+mqttServer.on('clientConnected', (client) => {
 	console.log('NETWORK : Client connected :', client.id);
 });
 
-server.on('published', (packet, client) => {
+mqttServer.on('published', (packet, client) => {
 	console.log('NETWORK : Published :', packet.payload.toString(), 'on topic', packet.topic);
 	//Message processing
 	
@@ -92,4 +109,72 @@ server.on('published', (packet, client) => {
 	
 });
 
-server.on('ready', () => { console.log('SERVER : Server running');});
+mqttServer.on('ready', () => { console.log('MQTT SERVER : Server running');});
+
+
+//HTTP Server
+httpServer.use(express.static(settings.http.static));
+httpServer.listen(settings.http.port);
+
+httpServer.get('/status/all', (req, res) => {
+	console.log('HTTP SERVER : sending status to ', req.ip)
+	res.status(200);
+	return res.json(iotStatus);
+});
+
+httpServer.post('/force/heating', (req, res) => {
+	console.log('HTTP SERVER : received request to change heater status');
+	let message = {topic: 'appliances/force/heating'};
+	if(iotStatus.heaterStatus == "on") {
+		message.payload = 'heating:off';
+	} else if(iotStatus.heaterStatus == 'off') {
+		message.payload = 'heating:on';
+	} else {
+		console.log('ERROR : Could not recognise message!');
+		message.payload = 'error';
+	}
+	res.status(200);
+	mqttServer.publish(message);
+});
+httpServer.post('/force/heatingauto', (req, res) => {
+	console.log('HTTP SERVER : received request to change heater auto mode');
+	let message = {topic: 'appliances/force/autoheat'};
+	if(iotStatus.heaterAuto == "on") {
+		message.payload = 'auto:off';
+	} else if(iotStatus.heaterAuto == 'off') {
+		message.payload = 'auto:on';
+	} else {
+		console.log('ERROR : Could not recognise message!');
+		message.payload = 'error';
+	}
+	res.status(200);
+	mqttServer.publish(message);
+});
+httpServer.post('/force/blinds', (req, res) => {
+	console.log('HTTP SERVER : received request to change heater status');
+	let message = {topic: 'appliances/force/blinds'};
+	if(iotStatus.blindsStatus == "closed") {
+		message.payload = 'blinds:open';
+	} else if(iotStatus.blindsStatus == 'open') {
+		message.payload = 'blinds:closed';
+	} else {
+		console.log('ERROR : Could not recognise message!');
+		message.payload = 'error';
+	}
+	res.status(200);
+	mqttServer.publish(message);
+});
+httpServer.post('/force/blindsauto', (req, res) => {
+	console.log('HTTP SERVER : received request to change heater auto mode');
+	let message = {topic: 'appliances/force/autoblinds'};
+	if(iotStatus.blindsAuto == "on") {
+		message.payload = 'auto:off';
+	} else if(iotStatus.blindsAuto == 'off') {
+		message.payload = 'auto:on';
+	} else {
+		console.log('ERROR : Could not recognise message!');
+		message.payload = 'error';
+	}
+	res.status(200);
+	mqttServer.publish(message);
+});
