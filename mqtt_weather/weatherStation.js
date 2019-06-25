@@ -49,7 +49,8 @@ var status = {
 			status.temperature.temperature = newWeather.main.temp;
 			status.weather.currWeather = newWeather.weather[0].description;
 			status.weather.relHumidity = newWeather.main.humidity;
-			status.weather.windSpeed = newWeather.wind.speed * 3.6;
+			//Converting from m/s to km/h
+			status.weather.windSpeed = (newWeather.wind.speed * 3.6).toFixed(1);
 
 			
 			//Asserting if it is night or day, based on real sunrise and sunset time

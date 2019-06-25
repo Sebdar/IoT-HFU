@@ -80,7 +80,7 @@ async function updateAll() {
         elements.blindsAction.innerHTML = "closed";
     }
     else if(newStatus.blindsStatus == "closed"){
-        elements.heaterAction.innerHTML = "open";
+        elements.blindsAction.innerHTML = "open";
     }
 
 
