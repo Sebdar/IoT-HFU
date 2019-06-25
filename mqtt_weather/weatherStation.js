@@ -17,6 +17,7 @@ catch(e) {
 var addr = 'mqtt://'+settings.addr+':'+settings.port;
 console.log("Connecting to "+addr);
 var APILink = settings.apiURL;
+var APILinkForecast = settings.apiURLForecast;
 if(settings.refreshInterval < 1000) {
 	console.log("WARNING : Specified refresh rate is too low for the API (we took the free version because we're cheap")
 	console.log("Restablishing refresh rate to 30000 ms");
@@ -32,6 +33,7 @@ var status = {
 		currWeather: null, //A string containing the weather overview
 		windSpeed: null, //A number
 		relHumidity: null, //A number
+		forecastWeather: null //A string
 	},
 	temperature: {
 		temperature: null,
@@ -58,10 +60,21 @@ var status = {
 				status.time.currTime = 'night'; 
 			}
 
-			status.publishStatus();
 		
 		}).catch(err => {console.log(err)});
 		pr1.catch(err => {console.log(err)});
+
+		//Retrieving forecast
+		var pr1 = fetch(APILinkForecast)
+		  .then(response => response.json())
+		 pr1.then(function(forecast) {
+			//console.log(forecast);
+			status.weather.forecastWeather = forecast.list[2].weather[0].description;
+		
+		}).catch(err => {console.log(err)});
+		pr1.catch(err => {console.log(err)});	
+
+		status.publishStatus();	
 	
 	},
 	publishStatus : function() {

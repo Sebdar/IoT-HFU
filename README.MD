@@ -56,6 +56,8 @@ As a debug method, the server includes a very basic method system :
 The weather station retrieves every 30 seconds (configurable, under `settings.json`) the current weather informations from the Open Weather Map service. Please mind that, since we use the free version we can't have a refresh rate lower than 1 second. Though the weather station will rectify it to 30 seconds if it finds an incorrect value.
 It then sends these informations as JSON objects over the topics `local/temperature`, `local/time` and `local/weather`. The time sent is a string, wether "day" or "night", based on the true sunrise and sunset time retrieved from OWM. The true "time" (UNIX) is also sent in the object.
 
+The forecast is retrieved from OWP as well and represents a 6 hours forecast.
+
 The weather station is not subscribed to any topic, but this could be a part of an update later (for example to shut it off).
 
 ### Connected blinds & heating system

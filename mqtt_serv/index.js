@@ -117,7 +117,12 @@ httpServer.use(express.static(settings.http.static));
 httpServer.listen(settings.http.port);
 
 httpServer.get('/status/all', (req, res) => {
-	console.log('HTTP SERVER : sending status to ', req.ip)
+	console.log('HTTP SERVER : sending status to ', req.ip);
+
+	//Completely arbitrary value
+	iotStatus.powerCons = (iotStatus.heaterCons + 100)  * 1.5;
+	iotStatus.powerCons = iotStatus.powerCons.toFixed(1);
+	
 	res.status(200);
 	return res.json(iotStatus);
 });

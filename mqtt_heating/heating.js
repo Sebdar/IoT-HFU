@@ -82,6 +82,7 @@ var status = {
 		} else {
 			status.powerCons = 0;
 		}
+		status.powerCons = status.powerCons.toFixed(1);
 		client.publish('heating/powercons', '{ "heaterCons": '+status.powerCons.toString()+' }');
 		//Note that if the number is not converted to a string,
 		//the client will send an empty string if powerCons==0
