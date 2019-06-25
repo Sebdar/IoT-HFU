@@ -116,6 +116,10 @@ mqttServer.on('ready', () => { console.log('MQTT SERVER : Server running');});
 httpServer.use(express.static(settings.http.static));
 httpServer.listen(settings.http.port);
 
+
+// GET METHODS
+
+
 httpServer.get('/status/all', (req, res) => {
 	console.log('HTTP SERVER : sending status to ', req.ip);
 
@@ -126,6 +130,55 @@ httpServer.get('/status/all', (req, res) => {
 	res.status(200);
 	return res.json(iotStatus);
 });
+
+httpServer.get('/status/heating', (req, res) => {
+	console.log('HTTP SERVER : sending heater status to ', req.ip);
+
+	let heatingStatus = {
+		insideTemp : iotStatus.insideTemp,
+		heaterAuto : iotStatus.heaterAuto,
+		heaterStatus : iotStatus.heaterStatus
+	}
+
+	//Completely arbitrary value
+	heatingStatus.heaterCons = (iotStatus.heaterCons + 100)  * 1.5;
+	heatingStatus.heaterCons = heatingStatus.heaterCons.toFixed(1);
+	
+	res.status(200);
+	return res.json(heatingStatus);
+});
+
+httpServer.get('/status/blinds', (req, res) => {
+	console.log('HTTP SERVER : sending blinds status to ', req.ip);
+
+	let blindsStatus = {
+		blindsAuto : iotStatus.blindsAuto,
+		blindsStatus : iotStatus.blindsStatus,
+	}
+
+	res.status(200);
+	return res.json(blindsStatus);
+});
+
+httpServer.get('/status/weather', (req, res) => {
+	console.log('HTTP SERVER : sending weather to ', req.ip);
+
+	let weather = {
+		currTime : iotStatus.currTime,
+		currWeather : iotStatus.currWeather,
+		windSpeed : iotStatus.windSpeed,
+		relHumidity : iotStatus.relHumidity,
+		forecastWeather : iotStatus.forecastWeather,
+		temperature : iotStatus.temperature
+	}
+
+	res.status(200);
+	return res.json(weather);
+});
+
+
+// POST METHODS
+
 
 httpServer.post('/force/heating', (req, res) => {
 	console.log('HTTP SERVER : received request to change heater status');
