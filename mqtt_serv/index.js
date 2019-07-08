@@ -192,6 +192,7 @@ httpServer.post('/force/heating', (req, res) => {
 		message.payload = 'error';
 	}
 	res.status(200);
+	res.send();
 	mqttServer.publish(message);
 });
 httpServer.post('/force/heatingauto', (req, res) => {

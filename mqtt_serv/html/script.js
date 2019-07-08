@@ -104,7 +104,7 @@ async function changeStatus(route) {
         } else {
             console.log('HTTP Error : code', receive.status);
         }
-        setTimeout(updateAll, 100);
+        setTimeout(updateAll, 500);
             
     } catch(e) { console.log('ERROR API : ', e);}
 

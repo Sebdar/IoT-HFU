@@ -138,7 +138,7 @@ client.on('message', (topic, message) => {
 			status.setAuto();
 		}
 		else
-			console.log('WARNING : Could not recognize force autoheat message');
+			console.log('WARNING : Could not recognize force autoblinds message');
 
 	}
 	else
