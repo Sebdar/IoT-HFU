@@ -27,28 +27,28 @@ The main server communicates using both MQTT and HTTP. This is achieved using tw
 
 The REST API provides the following GET routes :
 
-    * /status/all : returns a JSON object containing all the current IoT values
-    * /status/heating
-    * /status/blinds
-    * /status/weather
+- /status/all : returns a JSON object containing all the current IoT values
+- /status/heating
+- /status/blinds
+- /status/weather
 
 The last 3 send the same JSON object stripped of all the unnecessary informations. Note that these are not used in the `script.js` as it is more practical to get everything given the relatively small size of the data.
 
 It provides the following POST routes :
 
-    * /force/heating
-    * /force/heatingauto
-    * /force/blinds
-    * /force/blindsauto
+- /force/heating
+- /force/heatingauto
+- /force/blinds
+- /force/blindsauto
 
 These routes will flip the status of the appliances by telling the server to send a MQTT message to the appropriate channel. The server will then answer with the http code 200 (success).
 These features were not requested but added anyways as they seem like an important part of a home automation system.
 
-As a debug method, the server includes a very basic method system : 
+As a debug method, the server includes a very basic command system : 
 
-    * `exit`, `shutdown` or a standard EOF or SIGINT signal (CTRL + D, CTRL + C) will shutdown the server
-    * `key = value` will modify the key `key` in the internal iotStatus object of the server. This will not have any effect on the MQTT part, it is intended as a debug tool for the http side and REST API.
-    * `key` will return the current value of `key` in the iotStatus object.
+- `exit`, `shutdown` or a standard EOF or SIGINT signal (CTRL + D, CTRL + C) will shutdown the server
+- `key = value` will modify the key `key` in the internal iotStatus object of the server. This will not have any effect on the MQTT part, it is intended as a debug tool for the http side and REST API.
+- `key` will return the current value of `key` in the iotStatus object.
 
 
 ### Weather station
