@@ -207,6 +207,7 @@ httpServer.post('/force/heatingauto', (req, res) => {
 		message.payload = 'error';
 	}
 	res.status(200);
+	res.send();
 	mqttServer.publish(message);
 });
 httpServer.post('/force/blinds', (req, res) => {
@@ -221,6 +222,7 @@ httpServer.post('/force/blinds', (req, res) => {
 		message.payload = 'error';
 	}
 	res.status(200);
+	res.send();
 	mqttServer.publish(message);
 });
 httpServer.post('/force/blindsauto', (req, res) => {
@@ -235,5 +237,6 @@ httpServer.post('/force/blindsauto', (req, res) => {
 		message.payload = 'error';
 	}
 	res.status(200);
+	res.send();
 	mqttServer.publish(message);
 });
